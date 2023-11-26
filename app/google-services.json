@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "711372371096",
+    "project_id": "eso-quest",
+    "storage_bucket": "eso-quest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711372371096:android:0ebd5127ceb5599b744ced",
+        "android_client_info": {
+          "package_name": "com.clubbpc.esoquest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbgCFe7nC-dc-EaSlBaYQ1ypB6hsrlLyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
