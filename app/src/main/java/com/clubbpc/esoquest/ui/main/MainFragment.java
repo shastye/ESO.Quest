@@ -1,4 +1,4 @@
-package com.clubbpc.esoquest.ui.transform;
+package com.clubbpc.esoquest.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.clubbpc.esoquest.R;
-import com.clubbpc.esoquest.databinding.FragmentTransformBinding;
-import com.clubbpc.esoquest.databinding.ItemTransformBinding;
+import com.clubbpc.esoquest.databinding.FragmentMainBinding;
+import com.clubbpc.esoquest.databinding.ItemMainBinding;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,22 +28,22 @@ import java.util.List;
  * the [RecyclerView] using LinearLayoutManager in a small screen
  * and shows items using GridLayoutManager in a large screen.
  */
-public class TransformFragment extends Fragment {
+public class MainFragment extends Fragment {
 
-    private FragmentTransformBinding binding;
+    private FragmentMainBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        TransformViewModel transformViewModel =
-                new ViewModelProvider(this).get(TransformViewModel.class);
+        MainViewModel mainViewModel =
+                new ViewModelProvider(this).get(MainViewModel.class);
 
-        binding = FragmentTransformBinding.inflate(inflater, container, false);
+        binding = FragmentMainBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        RecyclerView recyclerView = binding.recyclerviewTransform;
-        ListAdapter<String, TransformViewHolder> adapter = new TransformAdapter();
+        RecyclerView recyclerView = binding.recyclerviewMain;
+        ListAdapter<String, MainViewHolder> adapter = new MainAdapter();
         recyclerView.setAdapter(adapter);
-        transformViewModel.getTexts().observe(getViewLifecycleOwner(), adapter::submitList);
+        mainViewModel.getTexts().observe(getViewLifecycleOwner(), adapter::submitList);
         return root;
     }
 
@@ -53,7 +53,7 @@ public class TransformFragment extends Fragment {
         binding = null;
     }
 
-    private static class TransformAdapter extends ListAdapter<String, TransformViewHolder> {
+    private static class MainAdapter extends ListAdapter<String, MainViewHolder> {
 
         private final List<Integer> drawables = Arrays.asList(
                 R.drawable.avatar_1,
@@ -73,7 +73,7 @@ public class TransformFragment extends Fragment {
                 R.drawable.avatar_15,
                 R.drawable.avatar_16);
 
-        protected TransformAdapter() {
+        protected MainAdapter() {
             super(new DiffUtil.ItemCallback<String>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
@@ -89,13 +89,13 @@ public class TransformFragment extends Fragment {
 
         @NonNull
         @Override
-        public TransformViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            ItemTransformBinding binding = ItemTransformBinding.inflate(LayoutInflater.from(parent.getContext()));
-            return new TransformViewHolder(binding);
+        public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            ItemMainBinding binding = ItemMainBinding.inflate(LayoutInflater.from(parent.getContext()));
+            return new MainViewHolder(binding);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull TransformViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
             holder.textView.setText(getItem(position));
             holder.imageView.setImageDrawable(
                     ResourcesCompat.getDrawable(holder.imageView.getResources(),
@@ -104,15 +104,15 @@ public class TransformFragment extends Fragment {
         }
     }
 
-    private static class TransformViewHolder extends RecyclerView.ViewHolder {
+    private static class MainViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView imageView;
         private final TextView textView;
 
-        public TransformViewHolder(ItemTransformBinding binding) {
+        public MainViewHolder(ItemMainBinding binding) {
             super(binding.getRoot());
-            imageView = binding.imageViewItemTransform;
-            textView = binding.textViewItemTransform;
+            imageView = binding.imageViewItemMain;
+            textView = binding.textViewItemMain;
         }
     }
 }
