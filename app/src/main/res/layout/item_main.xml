@@ -33,7 +33,7 @@
         android:layout_width="@dimen/item_main_image_length"
         android:layout_height="@dimen/item_main_image_length"
         android:layout_margin="8dp"
-        android:contentDescription="@string/image_view_item_main_content_description"
+        android:contentDescription="@string/lorem_ipsum_content_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

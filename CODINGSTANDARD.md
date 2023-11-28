@@ -40,6 +40,7 @@ File Organization
     * Instance variables
     * Constructors
     * Methods
+    * Getters and setters
 
 Indention
 ---------
@@ -84,7 +85,7 @@ Comments
         * Avoid the assembly language style of commenting every line of executable code with a trailing comment
   * Documentation Comments: /**...*/
     * Every file should have a copyright statement at the top, followed by package and import statements (each block separated by a blank line), and finally the class or interface declaration. In the Javadoc comments, describe what the class or interface does.
-    * Every class and nontrivial public method that you write must contain a Javadoc comment with at least one sentence describing what the class or method does. This sentence should start with a third person descriptive verb.
+    * Every class and nontrivial (getters and setters) public method that you write must contain a Javadoc comment with at least one sentence describing what the class or method does. This sentence should start with a third person descriptive verb.
     * Used for describing the specification of the code, from an implementation-free perspective, for developers who might not have the source code at hand
     * Use use comment per API and should appear just before the declaration
     * Should have an asterisk * at the beginning of each line but the first with indent(1)
@@ -179,7 +180,9 @@ White Space
 * Two spaces should always be used:
   * Between section of a source file
   * Between class and interface definitions
+  * Between field declarations, constructors, and methods
 * One space should always be used:
+  * Between types of fields (public vs private vs protected, etc.)
   * Between methods
   * Between local variables in a method and its first statement
   * Before a block or single-line comment
@@ -220,6 +223,7 @@ Programming Practices
 * Annotations:
   * Use @Deprecated, @Override, and @SuppressWarnings annotation liberally to remove warnings so that warning actually reflect problems in code
     * Only use SuppressWarnings if a warning passes that "impossible to eliminate" test
+* Use wrapper classes for types (Integer over int)
 
 Logging
 -------
