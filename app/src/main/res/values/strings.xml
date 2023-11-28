@@ -1,3 +1,26 @@
+<!--
+  ~ Copyright (c) 2023 Sierra
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+  ~ associated documentation files (the "Software"), to deal in the Software without restriction,
+  ~ including without limitation the rights to use, copy, modify, merge, publish, distribute,
+  ~ sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all copies or
+  ~ substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+  ~ NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+  ~ NON-INFRINGEMENT. IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+  ~ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  ~
+  ~ Except as contained in this notice, the name of Sierra shall not be used in advertising or
+  ~ otherwise to promote the sale, use or other dealings in this Software without prior written
+  ~ authorization from Sierra.
+  -->
+
 <resources>
     <string name="app_name">ESO.Quest</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -12,15 +35,20 @@
     <string name="menu_guild">Guild</string>
     <string name="menu_settings">Settings</string>
 
-    <string name="lorem_ipsum_title">Lorem Ipsum"</string>
-    <string name="lorem_ipsum">Lorem Ipsum is simply placeholder text of the printing and
+    <string name="lorem_ipsum_title">Lorem Ipsum</string>
+    <string name="lorem_ipsum_description">
+        Lorem Ipsum is simply placeholder text of the printing and
+        typesetting industry.
+    </string>
+    <string name="lorem_ipsum_summary">
+        Lorem Ipsum is simply placeholder text of the printing and
         typesetting industry. Lorem Ipsum has been the industry\'s standard placeholder text ever
         since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-        type specimen book"
+        type specimen book
     </string>
 
     <string name="fab_content_description">Represents a view to invoke an action</string>
-    <string name="image_view_item_main_content_description">Represents an image view in the
-        item
+    <string name="image_view_item_main_content_description">
+        Represents an image view in the item
     </string>
 </resources>
