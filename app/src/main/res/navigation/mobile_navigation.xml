@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_main" />
 
     <fragment
-        android:id="@+id/nav_reflow"
-        android:name="com.clubbpc.esoquest.ui.reflow.ReflowFragment"
-        android:label="@string/menu_reflow"
-        tools:layout="@layout/fragment_reflow" />
+        android:id="@+id/nav_alliance"
+        android:name="com.clubbpc.esoquest.ui.alliance.AllianceFragment"
+        android:label="@string/menu_alliance"
+        tools:layout="@layout/fragment_alliance" />
 
     <fragment
         android:id="@+id/nav_slideshow"

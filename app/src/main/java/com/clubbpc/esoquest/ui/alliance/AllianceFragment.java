@@ -1,4 +1,4 @@
-package com.clubbpc.esoquest.ui.reflow;
+package com.clubbpc.esoquest.ui.alliance;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.clubbpc.esoquest.databinding.FragmentReflowBinding;
+import com.clubbpc.esoquest.databinding.FragmentAllianceBinding;
 
-public class ReflowFragment extends Fragment {
+public class AllianceFragment extends Fragment {
 
-    private FragmentReflowBinding binding;
+    private FragmentAllianceBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ReflowViewModel reflowViewModel =
-                new ViewModelProvider(this).get(ReflowViewModel.class);
+        AllianceViewModel allianceViewModel =
+                new ViewModelProvider(this).get(AllianceViewModel.class);
 
-        binding = FragmentReflowBinding.inflate(inflater, container, false);
+        binding = FragmentAllianceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textReflow;
-        reflowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textAlliance;
+        allianceViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
