@@ -1,4 +1,4 @@
-package com.clubbpc.esoquest.ui.slideshow;
+package com.clubbpc.esoquest.ui.guild;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.clubbpc.esoquest.databinding.FragmentSlideshowBinding;
+import com.clubbpc.esoquest.databinding.FragmentGuildBinding;
 
-public class SlideshowFragment extends Fragment {
+public class GuildFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentGuildBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        GuildViewModel guildViewModel =
+                new ViewModelProvider(this).get(GuildViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentGuildBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textGuild;
+        guildViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

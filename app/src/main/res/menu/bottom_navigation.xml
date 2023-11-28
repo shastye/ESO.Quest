@@ -13,8 +13,8 @@
             android:icon="@drawable/ic_gallery_black_24dp"
             android:title="@string/menu_alliance" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_guild"
             android:icon="@drawable/ic_slideshow_black_24dp"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/menu_guild" />
     </group>
 </menu>
