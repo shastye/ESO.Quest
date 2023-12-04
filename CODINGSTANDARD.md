@@ -32,7 +32,7 @@ File Organization
   * The public class should be the first class or interface in the file.
 * Source file ordering:
   * Beginning comments
-  * Package and Import statements
+  * Package and import statements
   * Class and interface declarations
     * Documentation comment
     * Class or interface statement
@@ -190,6 +190,10 @@ White Space
 
 Naming Conventions
 ------------------
+* Packages
+  * Should be nouns 
+  * All lower case (utility)
+  * Should be a single word
 * Classes and Interfaces: 
   * Should be nouns 
   * Mixed case (ImageSprite)
@@ -198,6 +202,8 @@ Naming Conventions
 * Methods:
   * Should be verbs
   * Camel case (runFast();)
+* Drawables:
+  * Icons should be prefaced with "ic_" and suffixed with "_##dp"
 * Variables:
   * Should be short yet meaningful, except for throwaway variables
   * Camel case (int myWidth;)

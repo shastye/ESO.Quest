@@ -21,7 +21,7 @@
  * authorization from Sierra.
  */
 
-package com.clubbpc.esoquest.ui.Utility;
+package com.clubbpc.esoquest.ui.utility;
 
 /**
  * Defines constants for the application

@@ -21,7 +21,7 @@
  * authorization from Sierra.
  */
 
-package com.clubbpc.esoquest.ui.Utility;
+package com.clubbpc.esoquest.ui.utility.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -34,52 +34,53 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.clubbpc.esoquest.databinding.ViewItemBinding;
+import com.clubbpc.esoquest.databinding.ViewHeaderBinding;
+import com.clubbpc.esoquest.ui.utility.Header;
 
 
 /**
  * Represents a custom view for placement within the grids in each fragment to keep items consistent.
  */
-public class ItemView extends ConstraintLayout {
+public class HeaderView extends ConstraintLayout {
     private final TextView mTitle;
     private final ImageView mImage;
     private final TextView mDescription;
-    private final TextView mSummary;
+    private final SummaryView mSummary;
     private final Context mContext;
 
 
     /**
-     * Creates a custom view instance with the specified context and attribute set. Make sure to call
-     * init(...) after initialization.
+     * Creates a custom view instance with the specified context and attribute set.
+     * Make sure to call init(...) after initialization.
      * @param context the context for the current fragment
      * @param attrs the attribute set for the item; unused
      */
-    public ItemView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public HeaderView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        ViewItemBinding binding = ViewItemBinding.inflate(
+        ViewHeaderBinding binding = ViewHeaderBinding.inflate(
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE),
                 this
         );
 
-        mTitle = binding.tvViewItemTitle;
-        mImage = binding.ivViewItemImage;
-        mDescription = binding.tvViewItemDescription;
-        mSummary = binding.tvViewItemSummary;
+        mTitle = binding.tvViewHeaderTitle;
+        mImage = binding.ivViewHeaderImage;
+        mDescription = binding.tvViewHeaderDescription;
+        mSummary = binding.tvViewHeaderSummary;
     }
 
 
     /**
-     * Initializes item view with item
-     * @param item the item to be shown, representing a quest line or grouping
+     * Initializes header view with header
+     * @param header the header to be shown, representing a quest line or grouping
      */
-    void init(@NonNull Item item) {
-        mTitle.setText(item.getTitle());
-        mImage.setImageBitmap(item.getImage());
-        mDescription.setText(item.getDescription());
+    public void init(@NonNull Header header) {
+        mTitle.setText(header.getTitle());
+        mImage.setImageBitmap(header.getImage());
+        mDescription.setText(header.getDescription());
 
-        if (item.getSummary() != null && !item.getSummary().equals("")) {
-            mSummary.setText(item.getSummary());
+        if (header.getSummary() != null && !header.getSummary().equals("")) {
+            mSummary.init(header.getSummary());
         } else {
             mSummary.setVisibility(GONE);
         }
@@ -91,7 +92,7 @@ public class ItemView extends ConstraintLayout {
      * @param imageId the reference ID for the desired image
      * @param description the description of the item
      */
-    void init(@NonNull String title, @NonNull Integer imageId, @NonNull String description) {
+    public void init(@NonNull String title, @NonNull Integer imageId, @NonNull String description) {
         mTitle.setText(title);
         mImage.setImageDrawable(AppCompatResources.getDrawable(mContext, imageId));
         mDescription.setText(description);
@@ -105,10 +106,10 @@ public class ItemView extends ConstraintLayout {
      * @param description the description of the item
      * @param summary the summary of the quest line in the item
      */
-    void init(@NonNull String title, @NonNull Integer imageId, @NonNull String description, @NonNull String summary) {
+    public void init(@NonNull String title, @NonNull Integer imageId, @NonNull String description, @NonNull String summary) {
         mTitle.setText(title);
         mImage.setImageDrawable(AppCompatResources.getDrawable(mContext, imageId));
         mDescription.setText(description);
-        mSummary.setText(summary);
+        mSummary.init(summary);
     }
 }

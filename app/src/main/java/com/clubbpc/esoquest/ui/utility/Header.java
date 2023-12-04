@@ -21,58 +21,75 @@
  * authorization from Sierra.
  */
 
-package com.clubbpc.esoquest.ui.Utility;
+package com.clubbpc.esoquest.ui.utility;
 
 import android.graphics.Bitmap;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 /**
  * Represents a quest line or grouping.
- * If summary is defined, then the item is a quest line. If not, it's a grouping, such as an alliance.
  */
-public class Item {
+public class Header {
     private String mTitle;
     private Bitmap mImage;
     private String mDescription;
     private String mSummary;
+    private ArrayList<String> mQuests;
 
 
     /**
-     * Default constructor for item; initializes all fields to NULL
+     * Default constructor for header; initializes all fields to NULL
      */
-    public Item() {
+    public Header() {
         mTitle = null;
         mImage = null;
         mDescription = null;
         mSummary = null;
+        mQuests = null;
     }
 
     /**
-     * Partial constructor for item; initializes summary field to NULL
+     * Partial constructor for header; initializes summary and quest list fields to NULL
      * @param title the title of the quest line or grouping
      * @param image the image of the quest line or grouping
      * @param description the description of the quest line or grouping
      */
-    public Item(@NonNull String title, @NonNull Bitmap image, @NonNull String description) {
+    public Header(@NonNull String title, @NonNull Bitmap image, @NonNull String description) {
         mTitle = title;
         mImage = image;
         mDescription = description;
         mSummary = null;
+        mQuests = null;
     }
 
     /**
-     * Partial constructor for item; initializes summary field to NULL
+     * Partial constructor for header; initializes quest list field to NULL
      * @param title the title of the quest line or grouping
      * @param image the image of the quest line or grouping
      * @param description the description of the quest line or grouping
      * @param summary the summary of the quest line
      */
-    public Item(@NonNull String title, @NonNull Bitmap image, @NonNull String description, @NonNull String summary) {
+    public Header(@NonNull String title, @NonNull Bitmap image, @NonNull String description, @NonNull String summary) {
         mTitle = title;
         mImage = image;
         mDescription = description;
         mSummary = summary;
+        mQuests = null;
+    }
+
+    /**
+     * Copy constructor for header
+     * @param header the object to be copied
+     */
+    public Header(@NonNull Header header) {
+        mTitle = header.mTitle;
+        mImage = header.mImage;
+        mDescription = header.mDescription;
+        mSummary = header.mSummary;
+        mQuests = new ArrayList<>(header.mQuests);
     }
 
 
@@ -106,5 +123,13 @@ public class Item {
 
     public void setSummary(String mSummary) {
         this.mSummary = mSummary;
+    }
+
+    public ArrayList<String> getmQuests() {
+        return mQuests;
+    }
+
+    public void setmQuests(ArrayList<String> mQuests) {
+        this.mQuests = mQuests;
     }
 }
