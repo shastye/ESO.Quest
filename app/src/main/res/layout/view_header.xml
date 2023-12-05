@@ -23,13 +23,13 @@
   -->
 
 <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-<merge
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.utility.views.HeaderView">
+    android:paddingVertical="@dimen/view_child_padding">
 
     <TextView
         android:id="@+id/tv_view_header_title"
@@ -59,7 +59,7 @@
 
     <TextView
         android:id="@+id/tv_view_header_description"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/view_child_margin"
         android:text="@string/lorem_ipsum_description"
@@ -72,10 +72,10 @@
 
     <com.clubbpc.esoquest.ui.utility.views.SummaryView
         android:id="@+id/tv_view_header_summary"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_view_header_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-</merge>
+</androidx.constraintlayout.widget.ConstraintLayout>

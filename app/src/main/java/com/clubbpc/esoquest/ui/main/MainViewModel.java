@@ -23,27 +23,65 @@
 
 package com.clubbpc.esoquest.ui.main;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.clubbpc.esoquest.ui.utility.Constants;
+import com.clubbpc.esoquest.ui.utility.Header;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * Contains variables/information required for the Main Fragment
+ */
 public class MainViewModel extends ViewModel {
 
-    private final MutableLiveData<List<String>> mTexts;
+    private final MutableLiveData<ArrayList<Header>> mMainHeaders;
 
+
+    /**
+     * Used to initialize the MainViewModel.
+     * Initializes MainHeaders lists to be empty lists.
+     */
     public MainViewModel() {
-        mTexts = new MutableLiveData<>();
-        List<String> texts = new ArrayList<>();
-        for (int i = 1; i <= 16; i++) {
-            texts.add("This is item # " + i);
-        }
-        mTexts.setValue(texts);
+        mMainHeaders = new MutableLiveData<>(new ArrayList<>());
     }
 
-    public LiveData<List<String>> getTexts() {
-        return mTexts;
+    /**
+     * Used to assign the proper headers in order into the MainHeaders list.
+     * @param mainOrder the order in which the headers are supposed to appear.
+     */
+    public void queryDatabase(ArrayList<String> mainOrder) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        if (mainOrder != null && mainOrder.size() != 0) {
+            db.collection(Constants.MAIN_KEY)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        Header[] headers = new Header[mainOrder.size()];
+
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Header header = document.toObject(Header.class);
+                                header.setTitle(document.getId());
+
+                                int index = mainOrder.indexOf(document.getId());
+                                headers[index] = header;
+                            }
+                        } else {
+                            headers = null;
+                        }
+
+                        assert headers != null;
+                        mMainHeaders.postValue(new ArrayList<>(Arrays.asList(headers)));
+                    });
+        }
+    }
+
+    public MutableLiveData<ArrayList<Header>> getMainHeaders() {
+        return mMainHeaders;
     }
 }

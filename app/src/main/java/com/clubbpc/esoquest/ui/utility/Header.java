@@ -23,9 +23,10 @@
 
 package com.clubbpc.esoquest.ui.utility;
 
-import android.graphics.Bitmap;
+import androidx.annotation.Nullable;
 
-import androidx.annotation.NonNull;
+import com.google.firebase.firestore.Blob;
+import com.google.firebase.firestore.PropertyName;
 
 import java.util.ArrayList;
 
@@ -33,10 +34,15 @@ import java.util.ArrayList;
  * Represents a quest line or grouping.
  */
 public class Header {
+    @PropertyName("Title")
     private String mTitle;
-    private Bitmap mImage;
+    @PropertyName("Image")
+    private Blob mImage;
+    @PropertyName("Description")
     private String mDescription;
+    @PropertyName("Summary")
     private String mSummary;
+    @PropertyName("Quests")
     private ArrayList<String> mQuests;
 
 
@@ -51,85 +57,96 @@ public class Header {
         mQuests = null;
     }
 
-    /**
-     * Partial constructor for header; initializes summary and quest list fields to NULL
-     * @param title the title of the quest line or grouping
-     * @param image the image of the quest line or grouping
-     * @param description the description of the quest line or grouping
-     */
-    public Header(@NonNull String title, @NonNull Bitmap image, @NonNull String description) {
-        mTitle = title;
-        mImage = image;
-        mDescription = description;
-        mSummary = null;
-        mQuests = null;
+
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Header)) {
+            return false;
+        }
+
+        Header h = (Header) obj;
+        boolean theSame = mTitle.equals(h.mTitle);
+
+        if (mImage != null) {
+            theSame = theSame && mImage.equals(h.mImage);
+        } else if (h.mImage != null) {
+            theSame = false;
+        }
+
+        if (mDescription != null) {
+            theSame = theSame && mDescription.equals(h.mDescription);
+        } else if (h.mDescription != null) {
+            theSame = false;
+        }
+
+        if (mSummary != null) {
+            theSame = theSame && mSummary.equals(h.mSummary);
+        } else if (h.mSummary != null) {
+            theSame = false;
+        }
+
+        if (mQuests != null) {
+            theSame = theSame && mQuests.equals(h.mQuests);
+        } else if (h.mQuests != null) {
+            theSame = false;
+        }
+
+        return theSame;
     }
 
-    /**
-     * Partial constructor for header; initializes quest list field to NULL
-     * @param title the title of the quest line or grouping
-     * @param image the image of the quest line or grouping
-     * @param description the description of the quest line or grouping
-     * @param summary the summary of the quest line
-     */
-    public Header(@NonNull String title, @NonNull Bitmap image, @NonNull String description, @NonNull String summary) {
-        mTitle = title;
-        mImage = image;
-        mDescription = description;
-        mSummary = summary;
-        mQuests = null;
-    }
 
-    /**
-     * Copy constructor for header
-     * @param header the object to be copied
-     */
-    public Header(@NonNull Header header) {
-        mTitle = header.mTitle;
-        mImage = header.mImage;
-        mDescription = header.mDescription;
-        mSummary = header.mSummary;
-        mQuests = new ArrayList<>(header.mQuests);
-    }
-
-
+    @SuppressWarnings("unused")
     public String getTitle() {
         return mTitle;
     }
 
+    @SuppressWarnings("unused")
     public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }
 
-    public Bitmap getImage() {
+    @SuppressWarnings("unused")
+    public Blob getImage() {
         return mImage;
     }
 
-    public void setImage(Bitmap mImage) {
+    @SuppressWarnings("unused")
+    public void setImage(Blob mImage) {
         this.mImage = mImage;
     }
 
+    @SuppressWarnings("unused")
     public String getDescription() {
         return mDescription;
     }
 
+    @SuppressWarnings("unused")
     public void setDescription(String mDescription) {
         this.mDescription = mDescription;
     }
 
+    @SuppressWarnings("unused")
     public String getSummary() {
         return mSummary;
     }
 
+    @SuppressWarnings("unused")
     public void setSummary(String mSummary) {
         this.mSummary = mSummary;
     }
 
-    public ArrayList<String> getmQuests() {
+    @SuppressWarnings("unused")
+    public ArrayList<String> getQuests() {
         return mQuests;
     }
 
-    public void setmQuests(ArrayList<String> mQuests) {
+    @SuppressWarnings("unused")
+    public void setQuests(ArrayList<String> mQuests) {
         this.mQuests = mQuests;
     }
 }

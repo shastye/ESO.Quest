@@ -23,6 +23,7 @@
 
 package com.clubbpc.esoquest.ui.main;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,18 +32,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.clubbpc.esoquest.R;
 import com.clubbpc.esoquest.databinding.FragmentMainBinding;
-import com.clubbpc.esoquest.databinding.ItemMainBinding;
+import com.clubbpc.esoquest.databinding.ViewHeaderBinding;
+import com.clubbpc.esoquest.ui.ApplicationViewModel;
+import com.clubbpc.esoquest.ui.utility.Header;
+import com.clubbpc.esoquest.ui.utility.views.SummaryView;
+import com.google.firebase.firestore.Blob;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,16 +60,23 @@ public class MainFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MainViewModel mainViewModel =
-                new ViewModelProvider(this).get(MainViewModel.class);
+
+        MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+        ApplicationViewModel applicationViewModel =
+                new ViewModelProvider(requireActivity()).get(ApplicationViewModel.class);
 
         binding = FragmentMainBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        applicationViewModel.getMainOrder().observe(getViewLifecycleOwner(), mainViewModel::queryDatabase);
+
         RecyclerView recyclerView = binding.recyclerviewMain;
-        ListAdapter<String, MainViewHolder> adapter = new MainAdapter();
+
+        ListAdapter<Header, MainViewHolder> adapter = new MainAdapter();
         recyclerView.setAdapter(adapter);
-        mainViewModel.getTexts().observe(getViewLifecycleOwner(), adapter::submitList);
+        mainViewModel.getMainHeaders().observe(getViewLifecycleOwner(), adapter::submitList);
+
         return root;
     }
 
@@ -76,35 +86,17 @@ public class MainFragment extends Fragment {
         binding = null;
     }
 
-    private static class MainAdapter extends ListAdapter<String, MainViewHolder> {
-
-        private final List<Integer> drawables = Arrays.asList(
-                R.drawable.avatar_1,
-                R.drawable.avatar_2,
-                R.drawable.avatar_3,
-                R.drawable.avatar_4,
-                R.drawable.avatar_5,
-                R.drawable.avatar_6,
-                R.drawable.avatar_7,
-                R.drawable.avatar_8,
-                R.drawable.avatar_9,
-                R.drawable.avatar_10,
-                R.drawable.avatar_11,
-                R.drawable.avatar_12,
-                R.drawable.avatar_13,
-                R.drawable.avatar_14,
-                R.drawable.avatar_15,
-                R.drawable.avatar_16);
+    private static class MainAdapter extends ListAdapter<Header, MainViewHolder> {
 
         protected MainAdapter() {
-            super(new DiffUtil.ItemCallback<String>() {
+            super(new DiffUtil.ItemCallback<Header>() {
                 @Override
-                public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
+                public boolean areItemsTheSame(@NonNull Header oldItem, @NonNull Header newItem) {
                     return oldItem.equals(newItem);
                 }
 
                 @Override
-                public boolean areContentsTheSame(@NonNull String oldItem, @NonNull String newItem) {
+                public boolean areContentsTheSame(@NonNull Header oldItem, @NonNull Header newItem) {
                     return oldItem.equals(newItem);
                 }
             });
@@ -113,29 +105,44 @@ public class MainFragment extends Fragment {
         @NonNull
         @Override
         public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            ItemMainBinding binding = ItemMainBinding.inflate(LayoutInflater.from(parent.getContext()));
+            ViewHeaderBinding binding = ViewHeaderBinding.inflate(LayoutInflater.from(parent.getContext()));
             return new MainViewHolder(binding);
         }
 
         @Override
         public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-            holder.textView.setText(getItem(position));
-            holder.imageView.setImageDrawable(
-                    ResourcesCompat.getDrawable(holder.imageView.getResources(),
-                            drawables.get(position),
-                            null));
+            holder.title.setText(getItem(position).getTitle());
+            holder.description.setText(getItem(position).getDescription());
+            holder.summary.init(getItem(position).getSummary());
+
+            Blob blob = getItem(position).getImage();
+            if (blob != null) {
+                holder.image.setImageBitmap(BitmapFactory.decodeByteArray(blob.toBytes(), 0, blob.toBytes().length));
+            } else {
+                holder.image.setImageBitmap(null);
+            }
+        }
+
+        @Override
+        public void submitList(final List<Header> list) {
+            super.submitList(list != null ? new ArrayList<>(list) : null);
         }
     }
 
     private static class MainViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView imageView;
-        private final TextView textView;
+        private final TextView title;
+        private final ImageView image;
+        private final TextView description;
+        private final SummaryView summary;
 
-        public MainViewHolder(ItemMainBinding binding) {
+        public MainViewHolder(ViewHeaderBinding binding) {
             super(binding.getRoot());
-            imageView = binding.imageViewItemMain;
-            textView = binding.textViewItemMain;
+
+            title = binding.tvViewHeaderTitle;
+            image = binding.ivViewHeaderImage;
+            description = binding.tvViewHeaderDescription;
+            summary = binding.tvViewHeaderSummary;
         }
     }
 }

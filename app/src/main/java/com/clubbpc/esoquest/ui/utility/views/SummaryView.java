@@ -70,8 +70,12 @@ public class SummaryView extends ConstraintLayout {
      * Initialized needed variables for the view
      * @param summary the summary for the item
      */
-    public void init(@NonNull String summary) {
-        mSummary.setText(summary);
+    public void init(String summary) {
+        if (summary != null && !summary.equals("")) {
+            mSummary.setText(summary);
+        } else {
+            this.setVisibility(GONE);
+        }
     }
 
     public OnClickListener onPlusClick() {

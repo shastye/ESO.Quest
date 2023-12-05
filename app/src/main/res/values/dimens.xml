@@ -31,6 +31,7 @@
     <dimen name="view_header_image_width">200dp</dimen>
     <dimen name="view_header_image_height">100dp</dimen>
     <dimen name="view_child_margin">8dp</dimen>
+    <dimen name="view_child_padding">20dp</dimen>
     <dimen name="view_summary_show_icon_width">20dp</dimen>
 
     <dimen name="alliance_text_block_max_percent">1</dimen>

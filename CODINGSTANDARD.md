@@ -39,6 +39,7 @@ File Organization
     * Class (static) variables
     * Instance variables
     * Constructors
+    * Overrides
     * Methods
     * Getters and setters
 

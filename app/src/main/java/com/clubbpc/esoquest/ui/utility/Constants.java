@@ -26,9 +26,31 @@ package com.clubbpc.esoquest.ui.utility;
 /**
  * Defines constants for the application
  */
+@SuppressWarnings("unused")
 public class Constants {
     /** Used for debugging purposes. Check before log statement. */
-    public static final Boolean LOCAL_LOGD = false;
+    public static final Boolean LOCAL_LOGD = true;
     /** Used for logging purposes. Check before log statement. */
     public static final Boolean LOCAL_LOGV = false;
+
+    /** Used for Firebase Cloud Firestore .get() functions. */
+    public static final String DESCRIPTION_KEY = "Description";
+
+    /** Used for Firebase Cloud Firestore .get() functions. */
+    public static final String SUMMARY_KEY = "Summary";
+
+    /** Used for Firebase Cloud Firestore .get() functions. */
+    public static final String QUESTS_KEY = "Quests";
+
+    /** Used for Firebase Cloud Firestore .get() functions. */
+    public static final String MAIN_KEY = "Main";
+
+    /** Used for Firebase Cloud Firestore .get() functions. */
+    public static final String ORDER_KEY = "Order";
+
+    /** Used for Firebase Cloud Firestore .get() functions. */
+    public static final String ALLIANCE_KEY = "Alliance";
+
+    /** Used for Firebase Cloud Firestore .get() functions. */
+    public static final String GUILD_KEY = "Guild";
 }
