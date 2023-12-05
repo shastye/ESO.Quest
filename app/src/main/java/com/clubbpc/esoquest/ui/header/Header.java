@@ -21,7 +21,7 @@
  * authorization from Sierra.
  */
 
-package com.clubbpc.esoquest.ui.utility;
+package com.clubbpc.esoquest.ui.header;
 
 import androidx.annotation.Nullable;
 

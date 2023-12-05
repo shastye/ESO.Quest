@@ -23,30 +23,22 @@
 
 package com.clubbpc.esoquest.ui.main;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.clubbpc.esoquest.databinding.FragmentMainBinding;
-import com.clubbpc.esoquest.databinding.ViewHeaderBinding;
 import com.clubbpc.esoquest.ui.ApplicationViewModel;
-import com.clubbpc.esoquest.ui.utility.Header;
-import com.clubbpc.esoquest.ui.utility.views.SummaryView;
-import com.google.firebase.firestore.Blob;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.clubbpc.esoquest.ui.header.Header;
+import com.clubbpc.esoquest.ui.header.HeaderAdapter;
+import com.clubbpc.esoquest.ui.header.HeaderViewHolder;
 
 /**
  * Fragment that demonstrates a responsive layout pattern where the format of the content
@@ -73,7 +65,7 @@ public class MainFragment extends Fragment {
 
         RecyclerView recyclerView = binding.recyclerviewMain;
 
-        ListAdapter<Header, MainViewHolder> adapter = new MainAdapter();
+        ListAdapter<Header, HeaderViewHolder> adapter = new HeaderAdapter();
         recyclerView.setAdapter(adapter);
         mainViewModel.getMainHeaders().observe(getViewLifecycleOwner(), adapter::submitList);
 
@@ -86,63 +78,4 @@ public class MainFragment extends Fragment {
         binding = null;
     }
 
-    private static class MainAdapter extends ListAdapter<Header, MainViewHolder> {
-
-        protected MainAdapter() {
-            super(new DiffUtil.ItemCallback<Header>() {
-                @Override
-                public boolean areItemsTheSame(@NonNull Header oldItem, @NonNull Header newItem) {
-                    return oldItem.equals(newItem);
-                }
-
-                @Override
-                public boolean areContentsTheSame(@NonNull Header oldItem, @NonNull Header newItem) {
-                    return oldItem.equals(newItem);
-                }
-            });
-        }
-
-        @NonNull
-        @Override
-        public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            ViewHeaderBinding binding = ViewHeaderBinding.inflate(LayoutInflater.from(parent.getContext()));
-            return new MainViewHolder(binding);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-            holder.title.setText(getItem(position).getTitle());
-            holder.description.setText(getItem(position).getDescription());
-            holder.summary.init(getItem(position).getSummary());
-
-            Blob blob = getItem(position).getImage();
-            if (blob != null) {
-                holder.image.setImageBitmap(BitmapFactory.decodeByteArray(blob.toBytes(), 0, blob.toBytes().length));
-            } else {
-                holder.image.setImageBitmap(null);
-            }
-        }
-
-        @Override
-        public void submitList(final List<Header> list) {
-            super.submitList(list != null ? new ArrayList<>(list) : null);
-        }
-    }
-
-    private static class MainViewHolder extends RecyclerView.ViewHolder {
-
-        private final TextView title;
-        private final ImageView image;
-        private final TextView description;
-        private final SummaryView summary;
-
-        public MainViewHolder(ViewHeaderBinding binding) {
-            super(binding.getRoot());
-
-            title = binding.tvViewHeaderTitle;
-            image = binding.ivViewHeaderImage;
-            description = binding.tvViewHeaderDescription;
-            summary = binding.tvViewHeaderSummary;
-        }
-    }
 }

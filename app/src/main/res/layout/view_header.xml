@@ -70,7 +70,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.clubbpc.esoquest.ui.utility.views.SummaryView
+    <com.clubbpc.esoquest.ui.utility.SummaryView
         android:id="@+id/tv_view_header_summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

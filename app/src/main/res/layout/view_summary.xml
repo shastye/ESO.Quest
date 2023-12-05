@@ -28,7 +28,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.utility.views.SummaryView">
+    tools:context=".ui.utility.SummaryView">
 
     <RelativeLayout
         android:id="@+id/llc_view_summary"

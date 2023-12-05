@@ -27,7 +27,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.clubbpc.esoquest.ui.utility.Constants;
-import com.clubbpc.esoquest.ui.utility.Header;
+import com.clubbpc.esoquest.ui.header.Header;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
