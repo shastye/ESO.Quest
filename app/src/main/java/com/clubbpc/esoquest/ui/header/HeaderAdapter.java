@@ -23,7 +23,11 @@
 
 package com.clubbpc.esoquest.ui.header;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -71,9 +75,24 @@ public class HeaderAdapter extends ListAdapter<Header, HeaderViewHolder> {
 
         Blob blob = getItem(position).getImage();
         if (blob != null) {
-            holder.image.setImageBitmap(BitmapFactory.decodeByteArray(blob.toBytes(), 0, blob.toBytes().length));
+            Bitmap bitmap = BitmapFactory.decodeByteArray(
+                    blob.toBytes(),
+                    0,
+                    blob.toBytes().length
+            );
+            Drawable drawable = new BitmapDrawable(Resources.getSystem(), bitmap);
+            holder.image.setBackground(drawable);
+
+            holder.image.post(() -> {
+                int width = holder.description.getWidth();
+                float ratio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
+                int calcHeight = (int) (width / ratio);
+
+                holder.image.setMinimumWidth(width);
+                holder.image.setMinimumHeight(calcHeight);
+            });
         } else {
-            holder.image.setImageBitmap(null);
+            holder.image.setBackground(null);
         }
     }
 

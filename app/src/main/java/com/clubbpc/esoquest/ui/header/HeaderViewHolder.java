@@ -23,9 +23,9 @@
 
 package com.clubbpc.esoquest.ui.header;
 
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.clubbpc.esoquest.databinding.ViewHeaderBinding;
@@ -37,7 +37,7 @@ import com.clubbpc.esoquest.ui.utility.SummaryView;
 public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
     protected final TextView title;
-    protected final ImageView image;
+    protected final CardView image;
     protected final TextView description;
     protected final SummaryView summary;
 
