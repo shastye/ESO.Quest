@@ -23,10 +23,19 @@
 
 package com.clubbpc.esoquest.ui;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.view.View;
+
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.clubbpc.esoquest.ui.item.Item;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -90,6 +99,38 @@ public class ApplicationViewModel extends ViewModel {
                     }
                 });
     }
+
+
+    public static void displayImage(Item item, CardView image) {
+        if (item.getImage() != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(
+                    item.getImage().toBytes(),
+                    0,
+                    item.getImage().toBytes().length
+            );
+            Drawable drawable = new BitmapDrawable(Resources.getSystem(), bitmap);
+            image.setBackground(drawable);
+
+            image.post(() -> {
+                if (image.getBackground() != null) {
+                    image.setVisibility(View.VISIBLE);
+
+                    int width = image.getWidth();
+                    float ratio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
+                    int calcHeight = (int) (width / ratio);
+
+                    image.setMinimumWidth(width);
+                    image.setMinimumHeight(calcHeight);
+                }
+            });
+        } else {
+            image.post(() -> {
+                image.setBackground(null);
+                image.setVisibility(View.GONE);
+            });
+        }
+    }
+
 
     public LiveData<ArrayList<String>> getMainOrder() {
         return mMainOrder;

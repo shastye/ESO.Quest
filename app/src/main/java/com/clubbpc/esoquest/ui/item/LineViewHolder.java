@@ -23,10 +23,10 @@
 
 package com.clubbpc.esoquest.ui.item;
 
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.clubbpc.esoquest.databinding.ViewLineBinding;
@@ -39,8 +39,7 @@ public class LineViewHolder extends RecyclerView.ViewHolder {
     protected final TextView title;
     protected final CardView image;
     protected final TextView description;
-    protected final SummaryView summary;
-    protected final ConstraintLayout background;
+    protected final RelativeLayout background;
 
     public LineViewHolder(ViewLineBinding binding) {
         super(binding.getRoot());
@@ -48,7 +47,6 @@ public class LineViewHolder extends RecyclerView.ViewHolder {
         title = binding.tvViewLineTitle;
         image = binding.ivViewLineImage;
         description = binding.tvViewLineDescription;
-        summary = binding.tvViewLineSummary;
         background = binding.clLineLayout;
     }
 }

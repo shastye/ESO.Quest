@@ -23,10 +23,10 @@
 
 package com.clubbpc.esoquest.ui.item;
 
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.clubbpc.esoquest.databinding.ViewHeaderBinding;
@@ -39,8 +39,7 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
     protected final TextView title;
     protected final CardView image;
     protected final TextView description;
-    protected final SummaryView summary;
-    protected final ConstraintLayout background;
+    protected final RelativeLayout background;
 
     public HeaderViewHolder(ViewHeaderBinding binding) {
         super(binding.getRoot());
@@ -48,7 +47,6 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
         title = binding.tvViewHeaderTitle;
         image = binding.ivViewHeaderImage;
         description = binding.tvViewHeaderDescription;
-        summary = binding.tvViewHeaderSummary;
         background = binding.clHeaderLayout;
     }
 }

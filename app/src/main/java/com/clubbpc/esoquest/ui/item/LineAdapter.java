@@ -23,11 +23,6 @@
 
 package com.clubbpc.esoquest.ui.item;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +32,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.clubbpc.esoquest.databinding.ViewLineBinding;
-import com.google.firebase.firestore.Blob;
+import com.clubbpc.esoquest.ui.ApplicationViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +46,8 @@ public class LineAdapter extends ListAdapter<Item, LineViewHolder> {
         void onClick(Item item, View view);
     }
 
-    private OnClickListener mOnClickListener;
 
-    public void setOnClickListener(OnClickListener listener) {
-        mOnClickListener = listener;
-    }
+    private OnClickListener mOnClickListener;
 
 
     public LineAdapter() {
@@ -85,31 +77,7 @@ public class LineAdapter extends ListAdapter<Item, LineViewHolder> {
 
         holder.title.setText(item.getTitle());
         holder.description.setText(item.getDescription());
-        holder.summary.init(item.getSummary());
-
-        Blob blob = item.getImage();
-        if (blob != null) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(
-                    blob.toBytes(),
-                    0,
-                    blob.toBytes().length
-            );
-            Drawable drawable = new BitmapDrawable(Resources.getSystem(), bitmap);
-            holder.image.setBackground(drawable);
-
-            holder.image.post(() -> {
-                if (holder.image.getBackground() != null) {
-                    int width = holder.description.getWidth();
-                    float ratio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
-                    int calcHeight = (int) (width / ratio);
-
-                    holder.image.setMinimumWidth(width);
-                    holder.image.setMinimumHeight(calcHeight);
-                }
-            });
-        } else {
-            holder.image.setBackground(null);
-        }
+        ApplicationViewModel.displayImage(item, holder.image);
 
         holder.background.setOnClickListener(v -> {
             if (mOnClickListener != null) {
@@ -121,5 +89,9 @@ public class LineAdapter extends ListAdapter<Item, LineViewHolder> {
     @Override
     public void submitList(final List<Item> list) {
         super.submitList(list != null ? new ArrayList<>(list) : null);
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        mOnClickListener = listener;
     }
 }

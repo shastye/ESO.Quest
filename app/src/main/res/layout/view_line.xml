@@ -23,9 +23,8 @@
   -->
 
 <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cl_line_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -38,29 +37,16 @@
         android:text="@string/lorem_ipsum_title"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/iv_view_line_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.00"/>
+        android:textStyle="bold" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/iv_view_line_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/view_child_padding"
-        android:paddingEnd="0dp"
-        android:paddingTop="0dp"
-        android:paddingBottom="@dimen/view_child_padding"
-        android:layout_marginStart="@dimen/view_child_margin"
+        android:layout_marginStart="@dimen/view_child_padding"
         android:layout_marginEnd="0dp"
         android:contentDescription="@string/lorem_ipsum_content_description"
-        app:layout_constraintTop_toBottomOf="@id/tv_view_line_title"
-        app:layout_constraintBottom_toTopOf="@id/tv_view_line_description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/purple_200"/>
+        android:layout_below="@id/tv_view_line_title"/>
 
     <TextView
         android:id="@+id/tv_view_line_description"
@@ -68,30 +54,12 @@
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/view_child_padding"
         android:paddingEnd="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="@dimen/view_child_padding"
         android:layout_marginStart="@dimen/view_child_margin"
         android:layout_marginEnd="0dp"
         android:text="@string/lorem_ipsum_description"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:foregroundGravity="right"
-        app:layout_constraintTop_toBottomOf="@id/iv_view_line_image"
-        app:layout_constraintBottom_toTopOf="@id/tv_view_line_summary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.00"/>
-
-    <com.clubbpc.esoquest.ui.item.SummaryView
-        android:id="@+id/tv_view_line_summary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/view_child_padding"
-        android:paddingEnd="0dp"
-        android:paddingTop="0dp"
-        android:paddingBottom="@dimen/view_child_padding"
-        android:layout_marginStart="@dimen/view_child_margin"
-        android:layout_marginEnd="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_view_line_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@id/iv_view_line_image"/>
+</RelativeLayout>

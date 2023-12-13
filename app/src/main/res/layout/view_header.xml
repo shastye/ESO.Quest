@@ -23,9 +23,8 @@
   -->
 
 <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cl_header_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -40,21 +39,16 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/iv_view_header_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_centerHorizontal="true"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/iv_view_header_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/view_child_margin"
+        android:background="@color/black"
         android:contentDescription="@string/lorem_ipsum_content_description"
-        app:layout_constraintTop_toBottomOf="@id/tv_view_header_title"
-        app:layout_constraintBottom_toTopOf="@id/tv_view_header_description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_below="@id/tv_view_header_title"/>
 
     <TextView
         android:id="@+id/tv_view_header_description"
@@ -64,17 +58,5 @@
         android:text="@string/lorem_ipsum_description"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/iv_view_header_image"
-        app:layout_constraintBottom_toTopOf="@id/tv_view_header_summary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.clubbpc.esoquest.ui.item.SummaryView
-        android:id="@+id/tv_view_header_summary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_view_header_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@id/iv_view_header_image"/>
+</RelativeLayout>

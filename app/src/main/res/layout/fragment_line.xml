@@ -22,11 +22,50 @@
   ~ authorization from Sierra.
   -->
 
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recyclerview_line"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.main.MainFragment" />
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="@dimen/view_child_margin"
+        tools:context=".ui.main.LineFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/iv_fragment_line_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/lorem_ipsum_content_description"/>
+
+    <TextView
+        android:id="@+id/tv_fragment_line_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_ipsum_description"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_below="@id/iv_fragment_line_image"/>
+
+    <ImageView
+        android:id="@+id/iv_fragment_line_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_eso_ouroboros_100dp"
+        android:contentDescription="@string/view_generic_content_description"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/view_child_padding"
+        android:layout_below="@id/tv_fragment_line_summary"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:layout_below="@id/iv_fragment_line_divider"
+        app:layoutManager="LinearLayoutManager" />
+</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

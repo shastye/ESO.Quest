@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.clubbpc.esoquest.R;
 import com.clubbpc.esoquest.databinding.FragmentLineBinding;
+import com.clubbpc.esoquest.ui.ApplicationViewModel;
 import com.clubbpc.esoquest.ui.item.LineAdapter;
 
 public class LineFragment extends Fragment {
@@ -51,10 +52,12 @@ public class LineFragment extends Fragment {
         View root = binding.getRoot();
 
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
-
         RecyclerView recyclerView = binding.recyclerviewLine;
-
         LineAdapter adapter = new LineAdapter();
+
+
+        recyclerView.setNestedScrollingEnabled(false);
+
         adapter.setOnClickListener((item, view) -> {
             mainViewModel.getClickedHeader().postValue(item);
             //Navigation.findNavController(view).navigate(R.id.action_nav_main_to_nav_line);
@@ -63,6 +66,8 @@ public class LineFragment extends Fragment {
 
         mainViewModel.getClickedHeader().observe(getViewLifecycleOwner(), item -> {
             toolbar.setTitle(item.getTitle());
+            ApplicationViewModel.displayImage(item, binding.ivFragmentLineImage);
+            binding.tvFragmentLineSummary.setText(item.getSummary());
             mainViewModel.queryLine(item);
         });
         mainViewModel.getLineHeaders().observe(getViewLifecycleOwner(), adapter::submitList);
