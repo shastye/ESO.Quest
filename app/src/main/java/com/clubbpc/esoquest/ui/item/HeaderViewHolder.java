@@ -21,18 +21,18 @@
  * authorization from Sierra.
  */
 
-package com.clubbpc.esoquest.ui.header;
+package com.clubbpc.esoquest.ui.item;
 
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.clubbpc.esoquest.databinding.ViewHeaderBinding;
-import com.clubbpc.esoquest.ui.utility.SummaryView;
 
 /**
- * JavaDoc class description
+ * A RecyclerView.ViewHolder for items acting as headers to quest lines or zones
  */
 public class HeaderViewHolder extends RecyclerView.ViewHolder {
 
@@ -40,6 +40,7 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
     protected final CardView image;
     protected final TextView description;
     protected final SummaryView summary;
+    protected final ConstraintLayout background;
 
     public HeaderViewHolder(ViewHeaderBinding binding) {
         super(binding.getRoot());
@@ -48,5 +49,6 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
         image = binding.ivViewHeaderImage;
         description = binding.tvViewHeaderDescription;
         summary = binding.tvViewHeaderSummary;
+        background = binding.clHeaderLayout;
     }
 }

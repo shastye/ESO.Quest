@@ -21,7 +21,7 @@
  * authorization from Sierra.
  */
 
-package com.clubbpc.esoquest.ui.header;
+package com.clubbpc.esoquest.ui.item;
 
 import androidx.annotation.Nullable;
 
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 /**
  * Represents a quest line or grouping.
  */
-public class Header {
+public class Item {
     @PropertyName("Title")
     private String mTitle;
     @PropertyName("Image")
@@ -49,7 +49,7 @@ public class Header {
     /**
      * Default constructor for header; initializes all fields to NULL
      */
-    public Header() {
+    public Item() {
         mTitle = null;
         mImage = null;
         mDescription = null;
@@ -65,11 +65,11 @@ public class Header {
             return true;
         }
 
-        if (!(obj instanceof Header)) {
+        if (!(obj instanceof Item)) {
             return false;
         }
 
-        Header h = (Header) obj;
+        Item h = (Item) obj;
         boolean theSame = mTitle.equals(h.mTitle);
 
         if (mImage != null) {

@@ -26,20 +26,23 @@ package com.clubbpc.esoquest.ui.main;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.clubbpc.esoquest.ui.utility.Constants;
-import com.clubbpc.esoquest.ui.header.Header;
+import com.clubbpc.esoquest.ui.item.Item;
+import com.clubbpc.esoquest.ui.Constants;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Contains variables/information required for the Main Fragment
  */
 public class MainViewModel extends ViewModel {
 
-    private final MutableLiveData<ArrayList<Header>> mMainHeaders;
+    private final MutableLiveData<ArrayList<Item>> mMainHeaders;
+    private final MutableLiveData<ArrayList<Item>> mLineHeaders;
+    private final MutableLiveData<Item> mClickedHeader;
 
 
     /**
@@ -48,6 +51,8 @@ public class MainViewModel extends ViewModel {
      */
     public MainViewModel() {
         mMainHeaders = new MutableLiveData<>(new ArrayList<>());
+        mLineHeaders = new MutableLiveData<>(new ArrayList<>());
+        mClickedHeader = new MutableLiveData<>(null);
     }
 
     /**
@@ -61,27 +66,72 @@ public class MainViewModel extends ViewModel {
             db.collection(Constants.MAIN_KEY)
                     .get()
                     .addOnCompleteListener(task -> {
-                        Header[] headers = new Header[mainOrder.size()];
+                        Item[] items = new Item[mainOrder.size()];
 
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Header header = document.toObject(Header.class);
-                                header.setTitle(document.getId());
+                                Item item = document.toObject(Item.class);
+                                item.setTitle(document.getId());
 
                                 int index = mainOrder.indexOf(document.getId());
-                                headers[index] = header;
+                                items[index] = item;
                             }
                         } else {
-                            headers = null;
+                            items = null;
                         }
 
-                        assert headers != null;
-                        mMainHeaders.postValue(new ArrayList<>(Arrays.asList(headers)));
+                        assert items != null;
+                        mMainHeaders.postValue(new ArrayList<>(Arrays.asList(items)));
                     });
         }
     }
 
-    public MutableLiveData<ArrayList<Header>> getMainHeaders() {
+    /**
+     * Used to assign the proper headers in order into the LineHeaders list.
+     * @param item the item that was clicked on the MainFragment section.
+     */
+    public void queryLine(Item item) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        if (item.getQuests() != null && item.getQuests().size() != 0) {
+            db.collection(Constants.MAIN_KEY)
+                    .document(item.getTitle())
+                    .collection(Constants.QUESTS_KEY)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        Item[] items = new Item[item.getQuests().size()];
+
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Item h = document.toObject(Item.class);
+
+                                h.setTitle(document.getId());
+
+                                int index = item.getQuests().indexOf(document.getId());
+                                items[index] = h;
+                            }
+                        } else {
+                            items = null;
+                        }
+
+                        assert items != null;
+
+                        ArrayList<Item> tempList = new ArrayList<>(Arrays.asList(items));
+                        tempList.removeAll(Collections.singleton(null));
+                        mLineHeaders.postValue(tempList);
+                    });
+        }
+    }
+
+    public MutableLiveData<ArrayList<Item>> getMainHeaders() {
         return mMainHeaders;
+    }
+
+    public MutableLiveData<ArrayList<Item>> getLineHeaders() {
+        return mLineHeaders;
+    }
+
+    public MutableLiveData<Item> getClickedHeader() {
+        return mClickedHeader;
     }
 }

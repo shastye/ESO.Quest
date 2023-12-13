@@ -27,13 +27,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_desc">Navigation item</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_main">Main</string>
     <string name="menu_alliance">Alliance</string>
     <string name="menu_guild">Guild</string>
     <string name="menu_settings">Settings</string>
+    <string name="menu_line">Quest Line</string>
 
     <string name="view_summary_title">Summary</string>
     <string name="view_generic_content_description">Visual representation of the title</string>
@@ -50,7 +51,7 @@
         type specimen book
     </string>
     <string name="lorem_ipsum_content_description">
-        Represents an image view in the header
+        Represents an image view in the item
     </string>
 
     <string name="fab_content_description">Represents a view to invoke an action</string>

@@ -21,7 +21,7 @@
  * authorization from Sierra.
  */
 
-package com.clubbpc.esoquest.ui.utility;
+package com.clubbpc.esoquest.ui.item;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

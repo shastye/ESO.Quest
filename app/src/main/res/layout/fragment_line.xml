@@ -22,42 +22,11 @@
   ~ authorization from Sierra.
   -->
 
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_main">
-
-    <fragment
-        android:id="@+id/nav_main"
-        android:name="com.clubbpc.esoquest.ui.main.MainFragment"
-        android:label="@string/menu_main"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_nav_main_to_nav_line"
-            app:destination="@id/nav_line" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_alliance"
-        android:name="com.clubbpc.esoquest.ui.alliance.AllianceFragment"
-        android:label="@string/menu_alliance"
-        tools:layout="@layout/fragment_alliance" />
-
-    <fragment
-        android:id="@+id/nav_guild"
-        android:name="com.clubbpc.esoquest.ui.guild.GuildFragment"
-        android:label="@string/menu_guild"
-        tools:layout="@layout/fragment_guild" />
-
-    <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.clubbpc.esoquest.ui.settings.SettingsFragment"
-        android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
-
-    <fragment
-        android:id="@+id/nav_line"
-        android:name="com.clubbpc.esoquest.ui.main.LineFragment"
-        tools:layout="@layout/fragment_line"/>
-</navigation>
+    android:id="@+id/recyclerview_line"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutManager="LinearLayoutManager"
+    tools:context=".ui.main.MainFragment" />

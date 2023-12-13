@@ -21,7 +21,7 @@
  * authorization from Sierra.
  */
 
-package com.clubbpc.esoquest.ui.header;
+package com.clubbpc.esoquest.ui.item;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -29,6 +29,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -42,19 +43,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JavaDoc class description
+ * A ListAdapter for displaying items as HeaderViewHolders in a recyclerview
  */
-public class HeaderAdapter extends ListAdapter<Header, HeaderViewHolder> {
+public class HeaderAdapter extends ListAdapter<Item, HeaderViewHolder> {
+
+    public interface OnClickListener {
+        void onClick(Item item, View view);
+    }
+
+    private OnClickListener mOnClickListener;
+
+    public void setOnClickListener(OnClickListener listener) {
+        mOnClickListener = listener;
+    }
+
 
     public HeaderAdapter() {
-        super(new DiffUtil.ItemCallback<Header>() {
+        super(new DiffUtil.ItemCallback<Item>() {
             @Override
-            public boolean areItemsTheSame(@NonNull Header oldItem, @NonNull Header newItem) {
+            public boolean areItemsTheSame(@NonNull Item oldItem, @NonNull Item newItem) {
                 return oldItem.equals(newItem);
             }
 
             @Override
-            public boolean areContentsTheSame(@NonNull Header oldItem, @NonNull Header newItem) {
+            public boolean areContentsTheSame(@NonNull Item oldItem, @NonNull Item newItem) {
                 return oldItem.equals(newItem);
             }
         });
@@ -69,11 +81,13 @@ public class HeaderAdapter extends ListAdapter<Header, HeaderViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull HeaderViewHolder holder, int position) {
-        holder.title.setText(getItem(position).getTitle());
-        holder.description.setText(getItem(position).getDescription());
-        holder.summary.init(getItem(position).getSummary());
+        final Item item = getItem(position);
 
-        Blob blob = getItem(position).getImage();
+        holder.title.setText(item.getTitle());
+        holder.description.setText(item.getDescription());
+        holder.summary.init(item.getSummary());
+
+        Blob blob = item.getImage();
         if (blob != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(
                     blob.toBytes(),
@@ -84,20 +98,28 @@ public class HeaderAdapter extends ListAdapter<Header, HeaderViewHolder> {
             holder.image.setBackground(drawable);
 
             holder.image.post(() -> {
-                int width = holder.description.getWidth();
-                float ratio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
-                int calcHeight = (int) (width / ratio);
+                if (holder.image.getBackground() != null) {
+                    int width = holder.description.getWidth();
+                    float ratio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
+                    int calcHeight = (int) (width / ratio);
 
-                holder.image.setMinimumWidth(width);
-                holder.image.setMinimumHeight(calcHeight);
+                    holder.image.setMinimumWidth(width);
+                    holder.image.setMinimumHeight(calcHeight);
+                }
             });
         } else {
             holder.image.setBackground(null);
         }
+
+        holder.background.setOnClickListener(v -> {
+            if (mOnClickListener != null) {
+                mOnClickListener.onClick(item, v);
+            }
+        });
     }
 
     @Override
-    public void submitList(final List<Header> list) {
+    public void submitList(final List<Item> list) {
         super.submitList(list != null ? new ArrayList<>(list) : null);
     }
 }

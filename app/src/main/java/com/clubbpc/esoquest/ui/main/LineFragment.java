@@ -29,43 +29,43 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.clubbpc.esoquest.R;
-import com.clubbpc.esoquest.databinding.FragmentMainBinding;
-import com.clubbpc.esoquest.ui.ApplicationViewModel;
-import com.clubbpc.esoquest.ui.item.HeaderAdapter;
+import com.clubbpc.esoquest.databinding.FragmentLineBinding;
+import com.clubbpc.esoquest.ui.item.LineAdapter;
 
-public class MainFragment extends Fragment {
+public class LineFragment extends Fragment {
 
-    private FragmentMainBinding binding;
+    private FragmentLineBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
-        ApplicationViewModel applicationViewModel =
-                new ViewModelProvider(requireActivity()).get(ApplicationViewModel.class);
-
-        binding = FragmentMainBinding.inflate(inflater, container, false);
+        binding = FragmentLineBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        applicationViewModel.getMainOrder().observe(getViewLifecycleOwner(), mainViewModel::queryDatabase);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
 
-        RecyclerView recyclerView = binding.recyclerviewMain;
+        RecyclerView recyclerView = binding.recyclerviewLine;
 
-        HeaderAdapter adapter = new HeaderAdapter();
+        LineAdapter adapter = new LineAdapter();
         adapter.setOnClickListener((item, view) -> {
             mainViewModel.getClickedHeader().postValue(item);
-            Navigation.findNavController(view).navigate(R.id.action_nav_main_to_nav_line);
+            //Navigation.findNavController(view).navigate(R.id.action_nav_main_to_nav_line);
         });
         recyclerView.setAdapter(adapter);
 
-        mainViewModel.getMainHeaders().observe(getViewLifecycleOwner(), adapter::submitList);
+        mainViewModel.getClickedHeader().observe(getViewLifecycleOwner(), item -> {
+            toolbar.setTitle(item.getTitle());
+            mainViewModel.queryLine(item);
+        });
+        mainViewModel.getLineHeaders().observe(getViewLifecycleOwner(), adapter::submitList);
 
         return root;
     }
