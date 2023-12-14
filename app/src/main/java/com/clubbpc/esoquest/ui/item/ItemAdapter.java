@@ -30,30 +30,29 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.clubbpc.esoquest.databinding.ViewHeaderBinding;
+import com.clubbpc.esoquest.databinding.ViewLineBinding;
 import com.clubbpc.esoquest.ui.ApplicationViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A ListAdapter for displaying items as HeaderViewHolders in a recyclerview
+ * A ListAdapter for displaying items as HeaderViewHolders or ListViewHolders in a recyclerview
  */
-public class HeaderAdapter extends ListAdapter<Item, HeaderViewHolder> {
-
+public class ItemAdapter extends ListAdapter<Item, RecyclerView.ViewHolder> {
     public interface OnClickListener {
         void onClick(Item item, View view);
     }
 
+
+    private final int mViewType;
     private OnClickListener mOnClickListener;
 
-    public void setOnClickListener(OnClickListener listener) {
-        mOnClickListener = listener;
-    }
 
-
-    public HeaderAdapter() {
+    public ItemAdapter(int viewType) {
         super(new DiffUtil.ItemCallback<Item>() {
             @Override
             public boolean areItemsTheSame(@NonNull Item oldItem, @NonNull Item newItem) {
@@ -65,32 +64,62 @@ public class HeaderAdapter extends ListAdapter<Item, HeaderViewHolder> {
                 return oldItem.equals(newItem);
             }
         });
+
+        mViewType = viewType;
     }
 
     @NonNull
     @Override
-    public HeaderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHeaderBinding binding = ViewHeaderBinding.inflate(LayoutInflater.from(parent.getContext()));
-        return new HeaderViewHolder(binding);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final int HEADER_VIEW_TYPE = 0;
+        final int LINE_VIEW_TYPE = 1;
+
+        if (mViewType == HEADER_VIEW_TYPE) {
+            ViewHeaderBinding binding = ViewHeaderBinding.inflate(LayoutInflater.from(parent.getContext()));
+            return new HeaderViewHolder(binding);
+        } else if (mViewType == LINE_VIEW_TYPE) {
+            ViewLineBinding binding = ViewLineBinding.inflate(LayoutInflater.from(parent.getContext()));
+            return new LineViewHolder(binding);
+        } else {
+            // TODO: CHANGE TO QUESTVIEWHOLDER
+            ViewHeaderBinding binding = ViewHeaderBinding.inflate(LayoutInflater.from(parent.getContext()));
+            return new HeaderViewHolder(binding);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HeaderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final Item item = getItem(position);
 
-        holder.title.setText(item.getTitle());
-        holder.description.setText(item.getDescription());
-        ApplicationViewModel.displayImage(item, holder.image);
+        if (holder instanceof HeaderViewHolder) {
+            ((HeaderViewHolder) holder).title.setText(item.getTitle());
+            ((HeaderViewHolder) holder).description.setText(item.getDescription());
+            ApplicationViewModel.displayImage(item, ((HeaderViewHolder) holder).image);
 
-        holder.background.setOnClickListener(v -> {
-            if (mOnClickListener != null) {
-                mOnClickListener.onClick(item, v);
-            }
-        });
+            ((HeaderViewHolder) holder).background.setOnClickListener(v -> {
+                if (mOnClickListener != null) {
+                    mOnClickListener.onClick(item, v);
+                }
+            });
+        } else if (holder instanceof LineViewHolder) {
+            ((LineViewHolder) holder).title.setText(item.getTitle());
+            ((LineViewHolder) holder).description.setText(item.getDescription());
+            ApplicationViewModel.displayImage(item, ((LineViewHolder) holder).image);
+
+            ((LineViewHolder) holder).background.setOnClickListener(v -> {
+                if (mOnClickListener != null) {
+                    mOnClickListener.onClick(item, v);
+                }
+            });
+        }
     }
 
     @Override
     public void submitList(final List<Item> list) {
         super.submitList(list != null ? new ArrayList<>(list) : null);
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        mOnClickListener = listener;
     }
 }

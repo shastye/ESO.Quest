@@ -37,7 +37,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.clubbpc.esoquest.R;
 import com.clubbpc.esoquest.databinding.FragmentMainBinding;
 import com.clubbpc.esoquest.ui.ApplicationViewModel;
-import com.clubbpc.esoquest.ui.item.HeaderAdapter;
+import com.clubbpc.esoquest.ui.item.HeaderViewHolder;
+import com.clubbpc.esoquest.ui.item.ItemAdapter;
 
 public class MainFragment extends Fragment {
 
@@ -47,25 +48,25 @@ public class MainFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-
         ApplicationViewModel applicationViewModel =
                 new ViewModelProvider(requireActivity()).get(ApplicationViewModel.class);
 
         binding = FragmentMainBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        applicationViewModel.getMainOrder().observe(getViewLifecycleOwner(), mainViewModel::queryDatabase);
-
         RecyclerView recyclerView = binding.recyclerviewMain;
+        ItemAdapter adapter = new ItemAdapter(HeaderViewHolder.getViewType());
 
-        HeaderAdapter adapter = new HeaderAdapter();
+
         adapter.setOnClickListener((item, view) -> {
             mainViewModel.getClickedHeader().postValue(item);
             Navigation.findNavController(view).navigate(R.id.action_nav_main_to_nav_line);
         });
         recyclerView.setAdapter(adapter);
 
+        applicationViewModel.getMainOrder().observe(getViewLifecycleOwner(), mainViewModel::queryDatabase);
         mainViewModel.getMainHeaders().observe(getViewLifecycleOwner(), adapter::submitList);
+
 
         return root;
     }

@@ -58,6 +58,6 @@
 
     <fragment
         android:id="@+id/nav_line"
-        android:name="com.clubbpc.esoquest.ui.main.LineFragment"
+        android:name="com.clubbpc.esoquest.ui.main.MainLineFragment"
         tools:layout="@layout/fragment_line"/>
 </navigation>

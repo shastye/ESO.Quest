@@ -41,6 +41,7 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
     protected final TextView description;
     protected final RelativeLayout background;
 
+
     public HeaderViewHolder(ViewHeaderBinding binding) {
         super(binding.getRoot());
 
@@ -48,5 +49,10 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
         image = binding.ivViewHeaderImage;
         description = binding.tvViewHeaderDescription;
         background = binding.clHeaderLayout;
+    }
+
+
+    public static int getViewType() {
+        return 0;
     }
 }

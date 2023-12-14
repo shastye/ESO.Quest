@@ -41,6 +41,7 @@ public class LineViewHolder extends RecyclerView.ViewHolder {
     protected final TextView description;
     protected final RelativeLayout background;
 
+
     public LineViewHolder(ViewLineBinding binding) {
         super(binding.getRoot());
 
@@ -48,5 +49,10 @@ public class LineViewHolder extends RecyclerView.ViewHolder {
         image = binding.ivViewLineImage;
         description = binding.tvViewLineDescription;
         background = binding.clLineLayout;
+    }
+
+
+    public static int getViewType() {
+        return 1;
     }
 }
